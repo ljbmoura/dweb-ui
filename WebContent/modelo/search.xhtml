@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/resources/scaffold/pageTemplate.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="page" value="#{modeloBean.page}"/>
+        <f:viewAction action="#{modeloBean.paginate}"/>
+    </f:metadata>
+
+    <ui:param name="pageTitle" value="Search Modelo entities"/>
+
+    <ui:define name="header">
+        Modelo
+    </ui:define>
+
+    <ui:define name="subheader">
+        Busca entidades Modelo
+    </ui:define>
+
+    <ui:define name="footer"/>
+
+    <ui:define name="main">
+        <h:form id="search">
+            <f:validateBean disabled="true">
+                <h:panelGroup styleClass="search">
+
+                    <h:panelGrid columnClasses="label,component,required" columns="3">
+                        <h:outputLabel for="modeloBearExampleIsbn" value="Número Compra:"/>
+                        <h:panelGroup>
+                            <h:inputText id="modeloBearExampleIsbn" value="#{modeloBean.example.numero}"/>
+                            <h:message for="modeloBearExampleIsbn" styleClass="error"/>
+                        </h:panelGroup>
+                        <h:outputText/>
+                        <h:outputLabel for="modeloBearExampleTitle" value="Título:"/>
+                        <h:panelGroup>
+                            <h:inputText id="modeloBearExampleTitle" value="#{modeloBean.example.titulo}"/>
+                            <h:message for="modeloBearExampleTitle" styleClass="error"/>
+                        </h:panelGroup>
+                        <h:outputText/>
+                        <h:outputLabel for="modeloBearExampleDescription" value="Data de Liquidação:"/>
+                        <h:panelGroup>
+                            <h:inputText id="modeloBearExampleDescription" maxLength="2000"
+                                         value="#{modeloBean.example.dataLiquidacao}"/>
+                            <h:message for="modeloBearExampleDescription" styleClass="error"/>
+                        </h:panelGroup>
+                        <h:outputText/>
+                        
+                    </h:panelGrid>
+                    <h:panelGroup styleClass="buttons">
+                        <h:commandLink value="Search" action="#{modeloBean.paginate}" styleClass="btn btn-primary"/>
+                        <h:commandLink value="Create New" action="#{modeloBean.create}" styleClass="btn btn-primary"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </f:validateBean>
+
+            <h:dataTable id="bookBeanPageItems" styleClass="data-table" value="#{modeloBean.pageItems}" var="_item">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Número"/>
+                    </f:facet>
+                    <h:link outcome="/modelo/view">
+                        <f:param name="id" value="#{_item.numero}"/>
+                        <h:outputText id="itemIsbn" value="#{_item.numero}"/>
+                    </h:link>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Title"/>
+                    </f:facet>
+                    <h:link outcome="/modelo/view">
+                        <f:param name="id" value="#{_item.numero}"/>
+                        <h:outputText id="itemTitle" value="#{_item.titulo}"/>
+                    </h:link>
+                </h:column>
+            </h:dataTable>
+            <ui:include src="/resources/scaffold/paginator.xhtml">
+                <ui:param name="paginatorBean" value="#{modeloBean}"/>
+            </ui:include>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
